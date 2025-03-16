@@ -1,6 +1,10 @@
 # NestedDIContainer.Benchmark
 
+
+
 ## GC-Related Metrics Comparison
+
+![Screenshot 2025-03-16 at 14 05 20](https://github.com/user-attachments/assets/15bae4cf-9d1c-4be5-89aa-c695a0cb8a62)
 
 | LibraryName            | Min | Median | Max | Avg | StdDev | SampleCount | Sum |
 |------------------------|-----|--------|-----|-----|--------|-------------|------|
@@ -11,6 +15,8 @@
 | VContainer.GC()        | 198 | 210.5 | 598 | 212.38 | 30.05 | 200 | 42,475 |
 
 ## Execution Time Comparison (Nanoseconds)
+
+![Screenshot 2025-03-16 at 14 06 08](https://github.com/user-attachments/assets/843affef-c0eb-4737-a921-10980ccc7dfd)
 
 | LibraryName | Min | Median | Max | Avg | StdDev | SampleCount | Sum |
 |-------------|-----|--------|-----|-----|--------|-------------|------|
