@@ -1,4 +1,5 @@
 using Cathei.PinInject.Internal;
+using Doinject;
 using ManualDi.Main;
 using NestedDIContainer.Unity3d.Tests.PinInject;
 using NUnit.Framework;
@@ -119,18 +120,28 @@ namespace NestedDIContainer.Unity3d.Tests
                 .Method(() =>
                 {
                     var vContainerBuilder = new VContainer.ContainerBuilder();
-                    vContainerBuilder.Register<IFirstService, FirstService>(Lifetime.Singleton);
-                    vContainerBuilder.Register<ISecondService, SecondService>(Lifetime.Singleton);
-                    vContainerBuilder.Register<IThirdService, ThirdService>(Lifetime.Singleton);
-                    vContainerBuilder.Register<ISubObjectA, SubObjectA>(Lifetime.Singleton);
-                    vContainerBuilder.Register<ISubObjectB, SubObjectB>(Lifetime.Singleton);
-                    vContainerBuilder.Register<ISubObjectC, SubObjectC>(Lifetime.Singleton);
-                    vContainerBuilder.Register<IComplex1, Complex1>(Lifetime.Singleton);
-                    vContainerBuilder.Register<IComplex2, Complex2>(Lifetime.Singleton);
-                    vContainerBuilder.Register<IComplex3, Complex3>(Lifetime.Singleton);
-                    vContainerBuilder.Register<ISubObjectOne, SubObjectOne>(Lifetime.Singleton);
-                    vContainerBuilder.Register<ISubObjectTwo, SubObjectTwo>(Lifetime.Singleton);
-                    vContainerBuilder.Register<ISubObjectThree, SubObjectThree>(Lifetime.Singleton);
+                    
+                    var firstService = new FirstService();
+                    var secondService = new SecondService();
+                    var thirdService = new ThirdService();
+                    var subObjectA = new SubObjectA(new ServiceA());
+                    var subObjectB = new SubObjectB(new ServiceB());
+                    var subObjectC = new SubObjectC(new ServiceC());
+                    var subObjectOne = new SubObjectOne(firstService);
+                    var subObjectTwo = new SubObjectTwo(secondService);
+                    var subObjectThree = new SubObjectThree(thirdService);
+                    vContainerBuilder.RegisterInstance<IFirstService>(firstService);
+                    vContainerBuilder.RegisterInstance<ISecondService>(secondService);
+                    vContainerBuilder.RegisterInstance<IThirdService>(thirdService);
+                    vContainerBuilder.RegisterInstance<ISubObjectA>(subObjectA);
+                    vContainerBuilder.RegisterInstance<ISubObjectB>(subObjectB);
+                    vContainerBuilder.RegisterInstance<ISubObjectC>(subObjectC);
+                    vContainerBuilder.RegisterInstance<ISubObjectOne>(subObjectOne);
+                    vContainerBuilder.RegisterInstance<ISubObjectTwo>(subObjectTwo);
+                    vContainerBuilder.RegisterInstance<ISubObjectThree>(subObjectThree);
+                    vContainerBuilder.RegisterInstance<IComplex1>(new Complex1(firstService, secondService, thirdService, subObjectOne, subObjectTwo, subObjectThree));
+                    vContainerBuilder.RegisterInstance<IComplex2>(new Complex2(firstService, secondService, thirdService, subObjectOne, subObjectTwo, subObjectThree));
+                    vContainerBuilder.RegisterInstance<IComplex3>(new Complex3(firstService, secondService, thirdService, subObjectOne, subObjectTwo, subObjectThree));
                     var vContainer = vContainerBuilder.Build();
 
                     vContainer.Resolve<IComplex1>();
@@ -138,6 +149,43 @@ namespace NestedDIContainer.Unity3d.Tests
                     vContainer.Resolve<IComplex3>();
                 })
                 .SampleGroup(new SampleGroup("VContainer", SampleUnit.Nanosecond))
+                .GC()
+                .WarmupCount(WarmupCount)
+                .MeasurementCount(MeasurementCount)
+                .Run();
+            
+            Measure
+                .Method(async () =>
+                {
+                    var diContainer = new DIContainer();
+                    
+                    var firstService = new FirstService();
+                    var secondService = new SecondService();
+                    var thirdService = new ThirdService();
+                    var subObjectA = new SubObjectA(new ServiceA());
+                    var subObjectB = new SubObjectB(new ServiceB());
+                    var subObjectC = new SubObjectC(new ServiceC());
+                    var subObjectOne = new SubObjectOne(firstService);
+                    var subObjectTwo = new SubObjectTwo(secondService);
+                    var subObjectThree = new SubObjectThree(thirdService);
+                    diContainer.BindFromInstance<IFirstService>(firstService);
+                    diContainer.BindFromInstance<ISecondService>(secondService);
+                    diContainer.BindFromInstance<IThirdService>(thirdService);
+                    diContainer.BindFromInstance<ISubObjectA>(subObjectA);
+                    diContainer.BindFromInstance<ISubObjectB>(subObjectB);
+                    diContainer.BindFromInstance<ISubObjectC>(subObjectC);
+                    diContainer.BindFromInstance<ISubObjectOne>(subObjectOne);
+                    diContainer.BindFromInstance<ISubObjectTwo>(subObjectTwo);
+                    diContainer.BindFromInstance<ISubObjectThree>(subObjectThree);
+                    diContainer.BindFromInstance<IComplex1>(new Complex1(firstService, secondService, thirdService, subObjectOne, subObjectTwo, subObjectThree));
+                    diContainer.BindFromInstance<IComplex2>(new Complex2(firstService, secondService, thirdService, subObjectOne, subObjectTwo, subObjectThree));
+                    diContainer.BindFromInstance<IComplex3>(new Complex3(firstService, secondService, thirdService, subObjectOne, subObjectTwo, subObjectThree));
+
+                    await diContainer.ResolveAsync<IComplex1>();
+                    await diContainer.ResolveAsync<IComplex2>();
+                    await diContainer.ResolveAsync<IComplex3>();
+                })
+                .SampleGroup(new SampleGroup("DoInject", SampleUnit.Nanosecond))
                 .GC()
                 .WarmupCount(WarmupCount)
                 .MeasurementCount(MeasurementCount)

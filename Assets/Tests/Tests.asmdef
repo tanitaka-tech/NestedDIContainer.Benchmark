@@ -10,7 +10,8 @@
         "NestedDIContainer.Runtime",
         "NestedDIContainer.Unity.Runtime",
         "PinInject",
-        "VContainer"
+        "VContainer",
+        "Doinject"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
