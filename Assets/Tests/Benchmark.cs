@@ -1,5 +1,6 @@
 using Cathei.PinInject.Internal;
 using ManualDi.Main;
+using NestedDIContainer.Unity3d.Tests.PinInject;
 using NUnit.Framework;
 using TanitakaTech.NestedDIContainer;
 using Unity.PerformanceTesting;
@@ -79,8 +80,7 @@ namespace NestedDIContainer.Unity3d.Tests
             Measure
                 .Method(() =>
                 {
-                    // NOTE: If occur DependencyContainer compilation error, please fix access modifier of DependencyContainer.
-                    var container = new DependencyContainer();
+                    var container = new DependencyContainerCopy();
                     var childBinder = new Cathei.PinInject.DependencyBinder(container);
 
                     var firstService = new FirstService();
@@ -191,6 +191,7 @@ namespace NestedDIContainer.Unity3d.Tests
                 .GC()
                 .MeasurementCount(MeasurementCount)
                 .WarmupCount(WarmupCount)
+                .CleanUp(GlobalProjectScope.Dispose)
                 .Run();
         }
     }
