@@ -135,7 +135,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.burst": {
-      "version": "1.8.18",
+      "version": "1.8.19",
       "depth": 2,
       "source": "registry",
       "dependencies": {
@@ -204,7 +204,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.inputsystem": {
-      "version": "1.12.0",
+      "version": "1.13.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -235,7 +235,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.render-pipelines.core": {
-      "version": "17.0.3",
+      "version": "17.0.4",
       "depth": 1,
       "source": "builtin",
       "dependencies": {
@@ -250,12 +250,12 @@
       }
     },
     "com.unity.render-pipelines.universal": {
-      "version": "17.0.3",
+      "version": "17.0.4",
       "depth": 0,
       "source": "builtin",
       "dependencies": {
-        "com.unity.render-pipelines.core": "17.0.3",
-        "com.unity.shadergraph": "17.0.3",
+        "com.unity.render-pipelines.core": "17.0.4",
+        "com.unity.shadergraph": "17.0.4",
         "com.unity.render-pipelines.universal-config": "17.0.3"
       }
     },
@@ -278,19 +278,19 @@
       }
     },
     "com.unity.searcher": {
-      "version": "4.9.2",
+      "version": "4.9.3",
       "depth": 2,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
     "com.unity.shadergraph": {
-      "version": "17.0.3",
+      "version": "17.0.4",
       "depth": 1,
       "source": "builtin",
       "dependencies": {
-        "com.unity.render-pipelines.core": "17.0.3",
-        "com.unity.searcher": "4.9.2"
+        "com.unity.render-pipelines.core": "17.0.4",
+        "com.unity.searcher": "4.9.3"
       }
     },
     "com.unity.test-framework": {
@@ -351,6 +351,20 @@
       "source": "git",
       "dependencies": {},
       "hash": "ee940efab8d92008716c568cdcfb1a388e2d4802"
+    },
+    "st.mewli.core": {
+      "version": "https://github.com/mewlist/MewCore.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "358d243c8e760c17ef79b488e2ea2890ef30398c"
+    },
+    "st.mewli.di": {
+      "version": "https://github.com/mewlist/Doinject.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "9e871f9766a57c15f1c8ece662fc60898df54d79"
     },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",
