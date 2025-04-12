@@ -1,0 +1,6 @@
+[submodule "Packages/NestedDIContainer.Unity"]
+	path = Packages/NestedDIContainer.Unity
+	url = https://github.com/tanitaka-tech/NestedDIContainer.Unity
+[submodule "Packages/NestedDIContainer"]
+	path = Packages/NestedDIContainer
+	url = https://github.com/tanitaka-tech/NestedDIContainer

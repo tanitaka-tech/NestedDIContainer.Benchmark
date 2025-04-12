@@ -29,18 +29,16 @@
       "hash": "4d41f8114c888d69892b266a7f51d7b3d943a454"
     },
     "com.tanitaka-tech.nested-di-container": {
-      "version": "https://github.com/tanitaka-tech/NestedDIContainer.git",
+      "version": "file:NestedDIContainer",
       "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "d59623b32e8f9972dd95ee6be0cad1fd212d706a"
+      "source": "embedded",
+      "dependencies": {}
     },
     "com.tanitaka-tech.nested-di-container.unity": {
-      "version": "https://github.com/tanitaka-tech/NestedDIContainer.Unity.git",
+      "version": "file:NestedDIContainer.Unity",
       "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "169924f394873ee8982b4d9e76288fe92b9cab6d"
+      "source": "embedded",
+      "dependencies": {}
     },
     "com.unity.2d.animation": {
       "version": "10.1.4",
