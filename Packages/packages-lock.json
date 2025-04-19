@@ -21,6 +21,13 @@
       "dependencies": {},
       "url": "https://package.openupm.com"
     },
+    "com.monitor1394.xcharts": {
+      "version": "https://github.com/XCharts-Team/XCharts.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "a0dba2631828fd44030bc63f0877380d613d95ba"
+    },
     "com.pereviader.manualdi.unity3d": {
       "version": "https://github.com/PereViader/ManualDi.Unity3d.git",
       "depth": 0,

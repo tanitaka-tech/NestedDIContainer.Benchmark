@@ -3,6 +3,7 @@
     "com.cathei.pininject": "https://github.com/cathei/PinInject.git",
     "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
     "com.gustavopsantos.reflex": "9.0.1",
+    "com.monitor1394.xcharts": "https://github.com/XCharts-Team/XCharts.git",
     "com.pereviader.manualdi.unity3d": "https://github.com/PereViader/ManualDi.Unity3d.git",
     "com.tanitaka-tech.nested-di-container": "../NestedDIContainer.git",
     "com.tanitaka-tech.nested-di-container.unity": "../NestedDIContainer.Unity.git",
