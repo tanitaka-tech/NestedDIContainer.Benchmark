@@ -1,4 +1,3 @@
-using Cathei.PinInject.Internal;
 using Doinject;
 using ManualDi.Main;
 using NestedDIContainer.Unity3d.Tests.PinInject;
@@ -180,7 +179,8 @@ namespace NestedDIContainer.Unity3d.Tests
                 {
                     var scopeId = ScopeId.Create();
                     var scope = new TestScope(scopeId, null);
-                    var childBinder = new DependencyBinder(scopeId);
+                    var scopeContainer = new ScopeContainer(scopeId, null);
+                    var childBinder = new DependencyBinder(scopeId, GlobalProjectScope.Scopes, scopeContainer);
 
                     var firstService = new FirstService();
                     var secondService = new SecondService();
@@ -204,9 +204,9 @@ namespace NestedDIContainer.Unity3d.Tests
                     childBinder.Bind<IComplex2>(new Complex2(firstService, secondService, thirdService, subObjectOne, subObjectTwo, subObjectThree));
                     childBinder.Bind<IComplex3>(new Complex3(firstService, secondService, thirdService, subObjectOne, subObjectTwo, subObjectThree));
 
-                    GlobalProjectScope.Modules.Resolve<IComplex1>(scope);
-                    GlobalProjectScope.Modules.Resolve<IComplex2>(scope);
-                    GlobalProjectScope.Modules.Resolve<IComplex3>(scope);
+                    scopeContainer.Resolve<IComplex1>();
+                    scopeContainer.Resolve<IComplex2>();
+                    scopeContainer.Resolve<IComplex3>();
                 })
                 .SampleGroup(new SampleGroup("NestedDIContainer", SampleUnit.Nanosecond))
                 .GC()

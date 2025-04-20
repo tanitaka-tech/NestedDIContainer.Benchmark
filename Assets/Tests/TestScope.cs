@@ -10,6 +10,7 @@ namespace NestedDIContainer.Unity3d.Tests
 
         public ScopeId ScopeId { get; set; }
         public ScopeId? ParentScopeId { get; set; }
+        public ScopeContainer ScopeContainer { get; set; }
 
         public TestScope(ScopeId scopeId, ScopeId? parentScopeId)
         {
