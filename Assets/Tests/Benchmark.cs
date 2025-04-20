@@ -78,43 +78,7 @@ namespace NestedDIContainer.Unity3d.Tests
 
             MeasureNestedDIContainer();
 
-            Measure
-                .Method(() =>
-                {
-                    var container = new DependencyContainerCopy();
-                    var childBinder = new Cathei.PinInject.DependencyBinder(container);
-
-                    var firstService = new FirstService();
-                    var secondService = new SecondService();
-                    var thirdService = new ThirdService();
-                    var subObjectA = new SubObjectA(new ServiceA());
-                    var subObjectB = new SubObjectB(new ServiceB());
-                    var subObjectC = new SubObjectC(new ServiceC());
-                    var subObjectOne = new SubObjectOne(firstService);
-                    var subObjectTwo = new SubObjectTwo(secondService);
-                    var subObjectThree = new SubObjectThree(thirdService);
-                    childBinder.Bind<IFirstService>(firstService);
-                    childBinder.Bind<ISecondService>(secondService);
-                    childBinder.Bind<IThirdService>(thirdService);
-                    childBinder.Bind<ISubObjectA>(subObjectA);
-                    childBinder.Bind<ISubObjectB>(subObjectB);
-                    childBinder.Bind<ISubObjectC>(subObjectC);
-                    childBinder.Bind<ISubObjectOne>(subObjectOne);
-                    childBinder.Bind<ISubObjectTwo>(subObjectTwo);
-                    childBinder.Bind<ISubObjectThree>(subObjectThree);
-                    childBinder.Bind<IComplex1>(new Complex1(firstService, secondService, thirdService, subObjectOne, subObjectTwo, subObjectThree));
-                    childBinder.Bind<IComplex2>(new Complex2(firstService, secondService, thirdService, subObjectOne, subObjectTwo, subObjectThree));
-                    childBinder.Bind<IComplex3>(new Complex3(firstService, secondService, thirdService, subObjectOne, subObjectTwo, subObjectThree));
-
-                    container.Resolve(typeof(IComplex1), null);
-                    container.Resolve(typeof(IComplex2), null);
-                    container.Resolve(typeof(IComplex3), null);
-                })
-                .SampleGroup(new SampleGroup("PinInject", SampleUnit.Nanosecond))
-                .GC()
-                .MeasurementCount(MeasurementCount)
-                .WarmupCount(WarmupCount)
-                .Run();
+            MeasurePinInject();
 
             Measure
                 .Method(() =>
@@ -199,6 +163,15 @@ namespace NestedDIContainer.Unity3d.Tests
         {
             MeasureNestedDIContainer();
         }
+        
+        [Test]
+        [Performance]
+        [Timeout(int.MaxValue)]
+        public void BenchmarkAgainstPinInject()
+        {
+            MeasureNestedDIContainer();
+            MeasurePinInject();
+        }
 
         private void MeasureNestedDIContainer()
         {
@@ -240,6 +213,47 @@ namespace NestedDIContainer.Unity3d.Tests
                 .MeasurementCount(MeasurementCount)
                 .WarmupCount(WarmupCount)
                 .CleanUp(GlobalProjectScope.Dispose)
+                .Run();
+        }
+        
+        private void MeasurePinInject()
+        {
+            Measure
+                .Method(() =>
+                {
+                    var container = new DependencyContainerCopy();
+                    var childBinder = new Cathei.PinInject.DependencyBinder(container);
+
+                    var firstService = new FirstService();
+                    var secondService = new SecondService();
+                    var thirdService = new ThirdService();
+                    var subObjectA = new SubObjectA(new ServiceA());
+                    var subObjectB = new SubObjectB(new ServiceB());
+                    var subObjectC = new SubObjectC(new ServiceC());
+                    var subObjectOne = new SubObjectOne(firstService);
+                    var subObjectTwo = new SubObjectTwo(secondService);
+                    var subObjectThree = new SubObjectThree(thirdService);
+                    childBinder.Bind<IFirstService>(firstService);
+                    childBinder.Bind<ISecondService>(secondService);
+                    childBinder.Bind<IThirdService>(thirdService);
+                    childBinder.Bind<ISubObjectA>(subObjectA);
+                    childBinder.Bind<ISubObjectB>(subObjectB);
+                    childBinder.Bind<ISubObjectC>(subObjectC);
+                    childBinder.Bind<ISubObjectOne>(subObjectOne);
+                    childBinder.Bind<ISubObjectTwo>(subObjectTwo);
+                    childBinder.Bind<ISubObjectThree>(subObjectThree);
+                    childBinder.Bind<IComplex1>(new Complex1(firstService, secondService, thirdService, subObjectOne, subObjectTwo, subObjectThree));
+                    childBinder.Bind<IComplex2>(new Complex2(firstService, secondService, thirdService, subObjectOne, subObjectTwo, subObjectThree));
+                    childBinder.Bind<IComplex3>(new Complex3(firstService, secondService, thirdService, subObjectOne, subObjectTwo, subObjectThree));
+
+                    container.Resolve(typeof(IComplex1), null);
+                    container.Resolve(typeof(IComplex2), null);
+                    container.Resolve(typeof(IComplex3), null);
+                })
+                .SampleGroup(new SampleGroup("PinInject", SampleUnit.Nanosecond))
+                .GC()
+                .MeasurementCount(MeasurementCount)
+                .WarmupCount(WarmupCount)
                 .Run();
         }
     }
