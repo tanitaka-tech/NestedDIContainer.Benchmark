@@ -179,8 +179,8 @@ namespace NestedDIContainer.Unity3d.Tests
                 {
                     var scopeId = ScopeId.Create();
                     var scope = new TestScope(scopeId, null);
-                    var scopeContainer = new ScopeContainer(scopeId, null);
-                    var childBinder = new DependencyBinder(scopeId, GlobalProjectScope.Scopes, scopeContainer);
+                    var scopeContainer = new ScopeContainer(scope, null);
+                    var childBinder = new DependencyBinder(scopeContainer);
 
                     var firstService = new FirstService();
                     var secondService = new SecondService();
@@ -212,7 +212,6 @@ namespace NestedDIContainer.Unity3d.Tests
                 .GC()
                 .MeasurementCount(MeasurementCount)
                 .WarmupCount(WarmupCount)
-                .CleanUp(GlobalProjectScope.Dispose)
                 .Run();
         }
         
